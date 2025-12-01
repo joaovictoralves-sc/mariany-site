@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Presente de aniversário da gata</title>
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 100%; height: 100%;
+    font-family: 'Arial', sans-serif;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #ffc0cb, #ffe6f0);
+  }
+
+  h1 {
+    text-align: center;
+    margin-top: 30px;
+    color: hotpink;
+    font-size: 32px;
+  }
+
+  .credits {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    color: #d56a82;
+    font-weight: bold;
+  }
+
+  .heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: hotpink;
+    transform: rotate(45deg);
+    animation: heartFall 8s linear infinite;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+  .heart::before, .heart::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: hotpink;
+    border-radius: 50%;
+  }
+  .heart::before { top: -10px; left: 0; }
+  .heart::after  { top: 0; left: -10px; }
+  @keyframes heartFall {
+    0% { top: -30px; opacity: 1; transform: rotate(0deg); }
+    100% { top: 100%; opacity: 0; transform: rotate(360deg); }
+  }
+
+  .modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #ffe6f0;
+    padding: 20px;
+    overflow-y: auto;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    z-index: 100;
+  }
+
+  #textoblock {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 700px;
+    margin-top: 40px;
+    position: relative;
+    z-index: 120;
+  }
+
+  #texto {
+    color: black;
+    font-weight: bold;
+    white-space: pre-line;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .close {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: hotpink;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 120;
+    position: relative;
+  }
+
+  #presenteBtn {
+    display: none;
+    position: absolute;
+    top: 78%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, #ff72c6, #ff3ea6);
+    color: white;
+    padding: 20px 50px;
+    font-size: 30px;
+    font-weight: 800;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 0 20px #ff4fa8, 0 0 40px #ff2b92;
+    transition: transform 0.2s;
+    z-index: 50;
+  }
+  #presenteBtn:hover { transform: translateX(-50%) scale(1.05); }
+
+  .screen {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .hidden { display: none !important; }
+
+  .bolo-wrap {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    background: linear-gradient(180deg, #ffe4f3, #ffd0ea);
+  }
+
+  .nome {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    font-size: 110px;
+    font-weight: 900;
+    color: #ff007f;
+    letter-spacing: 5px;
+    text-shadow:
+      0 0 10px #ff77c8,
+      0 0 25px #ff33a8,
+      0 0 45px #ff008c,
+      0 0 60px #ff0080;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .bolo-container {
+    position: relative;
+    text-align: center;
+    margin-top: 280px;
+    z-index: 5;
+  }
+
+  .bolo {
+    width: 420px;
+    height: 230px;
+    background: linear-gradient(180deg, #8b4c29, #623119);
+    border-radius: 120px 120px 40px 40px;
+    position: relative;
+    box-shadow:
+      inset 0 0 55px rgba(0,0,0,0.35),
+      0 14px 26px rgba(0,0,0,0.22);
+  }
+
+  .cobertura {
+    width: 460px;
+    height: 150px;
+    background: linear-gradient(180deg, #ffb3dd, #ff77c8);
+    position: absolute;
+    top: -80px;
+    left: -20px;
+    border-radius: 200px 200px 70px 70px;
+    box-shadow:
+      inset 0 0 45px #ff2c8c,
+      inset 0 0 70px rgba(255,255,255,0.5),
+      0 10px 20px rgba(0,0,0,0.18);
+  }
+
+  .velas-container {
+    position: absolute;
+    top: -48px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .vela {
+    width: 17px;
+    height: 60px;
+    background: repeating-linear-gradient(
+      to bottom,
+      #ffffff,
+      #ffffff 15px,
+      #ffd4e8 15px,
+      #ffd4e8 30px
+    );
+    border-radius: 6px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .chama {
+    width: 20px;
+    height: 28px;
+    background: radial-gradient(circle, gold 0%, orange 60%, red 100%);
+    border-radius: 50%;
+    position: absolute;
+    top: -36px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow:
+      0 0 12px gold,
+      0 0 22px orange,
+      0 0 30px red;
+    animation: flame .25s infinite alternate;
+  }
+  @keyframes flame {
+    from { transform: translateX(-50%) scale(1) rotate(-3deg); opacity: 1; }
+    to   { transform: translateX(-50%) scale(1.4) rotate(3deg); opacity: 0.85; }
+  }
+  .apagada {
+    background: transparent !important;
+    box-shadow: none !important;
+    animation: none !important;
+  }
+
+  .falling-text {
+    position: absolute;
+    font-size: 20px;
+    color: hotpink;
+    animation: txtFall 6s linear infinite;
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+    font-weight: bold;
+    text-shadow: 0 0 4px #ff69b4;
+    z-index: 1;
+  }
+  @keyframes txtFall {
+    0% { top: -30px; opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+  }
+
+  .envelopes-wrap {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 60px;
+    background: linear-gradient(to bottom, #ffc0cb, #ffe6f0);
+  }
+
+  .envelopes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    margin-top: 20px;
+    z-index: 2;
+  }
+
+  .envelope-button {
+    position: relative;
+    width: 200px;
+    height: 120px;
+    background-color: pink;
+    border: 4px solid hotpink;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    color: hotpink;
+    font-size: 20px;
+    font-weight: bold;
+    user-select: none;
+    padding-bottom: 10px;
+  }
+  .envelope-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-bottom: 60px solid hotpink;
+  }
+
+  @media (max-width: 480px) {
+    .nome { font-size: 56px; top: 2%; }
+    .bolo { width: 300px; height: 160px; }
+    .cobertura { width: 340px; height: 110px; top: -60px; left: -20px; }
+    #presenteBtn { font-size: 20px; padding: 14px 30px; top: 75%; }
+  }
+</style>
+</head>
+<body>
+
+  <div id="tela-bolo" class="screen bolo-wrap">
+    <div class="nome">Mari</div>
+
+    <div class="bolo-container">
+      <div class="bolo" id="bolo">
+        <div class="cobertura"></div>
+        <div class="velas-container" id="velas"></div>
+      </div>
+    </div>
+
+    <button id="presenteBtn">Presente</button>
+
+
+    <div class="credits">by: João Victor Alves.</div>
+  </div>
+
+  <div id="tela-envelopes" class="screen envelopes-wrap hidden" aria-hidden="true">
+    <h1>🎉 Parabéns, meu amor! Te amo infinitamente! ❤️</h1>
+
+    <div class="envelopes" id="envelopes-area">
+      <div class="envelope-button" onclick="abrirCarta()">Poesia</div>
+      <div class="envelope-button" onclick="abrirCaos()">Nosso caos</div>
+      <div class="envelope-button" onclick="abrirPedido()">Pedido</div>
+    </div>
+
+    <div id="modal" class="modal"></div>
+
+    <div class="credits">by: João Victor Alves.</div>
+  </div>
+
+<script>
+
+const palavras = [
+  "mon amour", "chérie", "beauté", "ma vie", "mon cœur",
+  "belle", "adorable", "je t’adore", "l’amour de ma vie", "Je t’aime"
+];
+
+function criarTextoCaindo(txt, alvo = document.body) {
+  const t = document.createElement('div');
+  t.className = 'falling-text';
+  t.textContent = txt;
+  alvo.appendChild(t);
+
+  const largura = t.offsetWidth;
+  const zonas = ["esquerda", "direita", "baixo"];
+  const zona = zonas[Math.floor(Math.random() * zonas.length)];
+
+  let x;
+  if (zona === "esquerda") {
+    x = Math.random() * (window.innerWidth * 0.25);
+  } else if (zona === "direita") {
+    x = window.innerWidth * 0.75 + Math.random() * (window.innerWidth * 0.25 - largura);
+  } else {
+    x = Math.random() * (window.innerWidth - largura);
+  }
+
+  t.style.left = x + 'px';
+  t.style.top = '-30px';
+  t.style.fontSize = (16 + Math.random() * 16) + 'px';
+  t.style.opacity = (0.6 + Math.random() * 0.4);
+  t.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
+
+  setTimeout(() => t.remove(), 6000);
+}
+
+setInterval(() => {
+  const palavra = palavras[Math.floor(Math.random() * palavras.length)];
+  criarTextoCaindo(palavra);
+}, 150);
+
+const velasContainer = document.getElementById("velas");
+let velasApagadas = 0;
+const VELAS_TOTAL = 15;
+
+for (let i = 0; i < VELAS_TOTAL; i++) {
+  const vela = document.createElement("div");
+  vela.className = "vela";
+
+  const chama = document.createElement("div");
+  chama.className = "chama";
+
+  vela.appendChild(chama);
+  velasContainer.appendChild(vela);
+
+  function apagar() {
+    if (!chama.classList.contains("apagada")) {
+      chama.classList.add("apagada");
+      velasApagadas++;
+      if (velasApagadas === VELAS_TOTAL) mostrarPresente();
+    }
+  }
+
+  vela.addEventListener("click", apagar);
+  vela.addEventListener("touchstart", (e) => { e.preventDefault(); apagar(); });
+}
+
+const presenteBtn = document.getElementById("presenteBtn");
+function mostrarPresente() {
+  setTimeout(() => {
+    presenteBtn.style.display = "block";
+  }, 800);
+}
+
+const telaBolo = document.getElementById('tela-bolo');
+const telaEnvelopes = document.getElementById('tela-envelopes');
+
+function irParaEnvelopes() {
+  telaBolo.classList.add('hidden');
+  telaEnvelopes.classList.remove('hidden');
+  telaEnvelopes.setAttribute('aria-hidden', 'false');
+
+  iniciarCoracoes(document.getElementById('envelopes-area'));
+
+}
+
+presenteBtn.addEventListener('click', () => {
+  irParaEnvelopes();
+});
+
+let heartsInterval;
+function iniciarCoracoes(alvo) {
+  pararCoracoes();
+  heartsInterval = setInterval(() => {
+    for (let i = 0; i < 2; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+
+      const rect = alvo.getBoundingClientRect();
+      heart.style.left = Math.random() * rect.width + 'px';
+      heart.style.top = '-30px';
+
+      const size = 10 + Math.random() * 20;
+      heart.style.width = heart.style.height = size + 'px';
+      heart.style.animationDuration = (6 + Math.random() * 4) + 's';
+
+      alvo.appendChild(heart);
+      setTimeout(() => heart.remove(), 12000);
+    }
+  }, 300);
+}
+
+function pararCoracoes() {
+  if (heartsInterval) {
+    clearInterval(heartsInterval);
+    heartsInterval = null;
+  }
+}
+
+// inicia corações no body por padrão
+iniciarCoracoes(document.body);
+
+const modal = document.getElementById('modal');
+
+const trechos = [
+  "Lugar do Amor\n\nSaber que alguém acessa o lugar do amor do mesmo jeito que você.\nFaz perceber uma força maior, uma espécie de energia universal, a qual pode ser habitada, enxergada, sentida.",
+  "É como se existisse um lugar secreto, mas comum entre dois corações.\nE quando se reconhece isso, tudo muda.\nO amor deixa de ser idealizado, e vira espaço.\nVasto. Vivo.",
+  "Eu subsisto além do que consigo entregar.\nÀs vezes, o que sinto não encontra caminho pra sair.\nMesmo assim, há tanto que se dá.\nTanta entrega silenciosa, nos detalhes.\nNos gestos, nas memórias, nas vontades não ditas.",
+  "É uma onda que chega carregada de substâncias puras,\ncomo se todo o corpo fosse atravessado por um só instante:\ndesejos, esperanças, arrepios, lembranças,\nolhares que dizem mais do que a boca ousaria.",
+  "Um mundo inteiro em um único lugar.\nE esse lugar, inexplicavelmente, é você.",
+  "Há algo em te amar que me leva pra dentro de mim,\nme fazendo atravessar quilômetros do que sou,\ndescobrindo refúgios, encarando complexos,\nsentindo o peso e a leveza de existir por alguém.",
+  "É como se, em todos os momentos,\nesse amor ainda estivesse aqui, esperando por ser novamente sentido.\nPresente, mesmo quando adormecido.\nForte, mesmo quando frágil.",
+  "Amar é também se perder às vezes.\nÉ não se ouvir, e ainda assim querer escutar.\nÉ falhar, e mesmo assim tentar de novo.\nÉ olhar pra alguém e ver seu lar.",
+  "Se eu pudesse, agora mesmo,\nte olharia nos seus olhos e deixaria o silêncio falar por mim.\nReviveria nossas conversas jogadas fora,\nnossos planos de todo tipo.",
+  "A tua presença é única, e disso eu sei.\nTe reconhecer foi como encontrar algo raro,\nque não se compara, que não se repete.",
+  "Ainda assim, entre tudo o que fomos e tudo o que somos,\nhá um sentimento que permanece:\ngrande, honesto, vivo.",
+  "Quero que saiba que amar você nunca foi pouco.\nNunca será.\nÉ o lugar onde eu gosto de estar.",
+  "Porque o amor — esse verdadeiro —\né um lugar livre.\nE você é o meu.",
+  "Espero que tenha gostado, meu amor! 💍🤍"
+];
+
+const caosTrechos = [
+  "Hoje é 08 de dezembro de 2025, um dia que vai ficar marcado na minha memória para sempre porque é o dia em que celebramos a sua existência, a sua vida, a sua beleza, a sua essência.\n\nDesde que você chegou ao mundo, há 15 anos, você trouxe luz, amor e alegria para todos ao seu redor, e eu me sinto infinitamente privilegiado por ter cruzado o seu caminho.",
+  "Você é simplesmente extraordinária. Não só pelo seu rosto lindo, pelo seu corpo encantador, mas pela sua mente brilhante, pela sua sensibilidade, pela sua força, pela sua coragem e pela forma como você transforma tudo ao redor com a sua presença.\n\nCada sorriso seu ilumina o meu mundo, cada olhar seu me faz flutuar, cada gesto seu me ensina sobre amor, empatia e beleza verdadeira.",
+  "Meu amor, você é uma obra-prima de alma, uma mistura perfeita de delicadeza e intensidade, de ternura e força, de sabedoria e inocência.\nE eu só consigo agradecer a cada instante por você ser minha, por eu poder te amar e compartilhar cada momento contigo.",
+  "Hoje, celebramos você, e celebramos também a sorte que a vida me deu de te colocar ao meu lado.\n\nE neste seu aniversário de 15 anos, quero dizer que você merece o mundo inteiro, minha princesa.\nQue cada sonho seu encontre caminho para se realizar, que cada desafio seja superado com sua força única, que cada sorriso seja multiplicado infinitamente.\n\nQue você continue crescendo, brilhando e encantando a todos com a sua energia, com a sua bondade, com a sua alegria de viver.\n\nQue cada ano que passar traga ainda mais conquistas, experiências inesquecíveis e felicidade verdadeira.\n\nQue você continue sendo essa menina incrível que mistura maturidade e leveza, que encanta por dentro e por fora, que transforma tudo ao seu redor em beleza e amor.",
+  "Meu bem, eu te amo mais do que qualquer palavra poderia expressar, e neste dia especial quero que você sinta todo o carinho, toda a admiração, todo o amor que tenho por você.\n\nQue este seja apenas o começo de uma vida maravilhosa, e que eu possa estar ao seu lado em cada passo, em cada sorriso, em cada vitória e em cada momento.\n\nFeliz 15 anos, minha eterna inspiração, meu amor eterno.\nTe amo há exatos versos de amor:"
+];
+
+function escreverTextoGradualmente(texto, container, callback) {
+  let i = 0;
+  container.style.opacity = 1;
+  container.textContent = "";
+
+  const intervalo = setInterval(() => {
+    container.textContent += texto[i] ?? '';
+    i++;
+    if (i >= texto.length) {
+      clearInterval(intervalo);
+      setTimeout(() => {
+        container.style.opacity = 0;
+        setTimeout(() => callback && callback(), 1000);
+      }, 2500);
+    }
+  }, 40);
+}
+
+let intervaloContador = null;
+function escreverContador() {
+  const dataReferencia = new Date('2024-11-10');
+  const contador = document.getElementById('contador');
+  if (!contador) return;
+
+  if (intervaloContador) clearInterval(intervaloContador);
+
+  function atualizar() {
+    const agora = new Date();
+    let diff = agora - dataReferencia;
+    const futuro = diff < 0;
+    diff = Math.abs(diff);
+
+    const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutos = Math.floor((diff / (1000 * 60)) % 60);
+    const segundos = Math.floor((diff / 1000) % 60);
+
+    const texto = futuro
+      ? `Faltam ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos para 13 meses!`
+      : `${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos de nós`;
+
+    contador.textContent = texto;
+  }
+
+  atualizar();
+  intervaloContador = setInterval(atualizar, 1000);
+}
+
+function abrirCarta() {
+  modal.style.display = 'flex';
+  iniciarCoracoes(modal);
+
+  modal.innerHTML = `
+    <div id="textoblock"><p id="texto"></p></div>
+    <button class="close" onclick="fechar()">Fechar</button>
+  `;
+  const container = document.getElementById("texto");
+  let index = 0;
+  function mostrar() {
+    if (index < trechos.length) {
+      escreverTextoGradualmente(trechos[index], container, () => {
+        index++;
+        mostrar();
+      });
+    }
+  }
+  mostrar();
+}
+
+function abrirCaos() {
+  modal.style.display = "flex";
+  iniciarCoracoes(modal);
+
+  modal.innerHTML = `
+    <div id="textoblock">
+      <p id="texto"></p>
+      <div id="contador" style="
+        margin-top: 25px;
+        font-size: 22px;
+        font-weight: bold;
+        color: #d14b75;
+      "></div>
+    </div>
+    <button class="close" onclick="fechar()">Fechar</button>
+  `;
+
+  const container = document.getElementById("texto");
+  let index = 0;
+  function mostrar() {
+    if (index < caosTrechos.length) {
+      escreverTextoGradualmente(caosTrechos[index], container, () => {
+        index++;
+        mostrar();
+      });
+    } else {
+      escreverContador();
+    }
+  }
+  mostrar();
+}
+
+function abrirPedido() {
+  modal.style.display = "flex";
+  iniciarCoracoes(modal);
+
+  modal.innerHTML = `
+    <div id="textoblock">
+      <h2 style="color:hotpink; margin-bottom:20px;">Meu amor, você aceita oficialmente namorar comigo?</h2>
+
+      <div style="display:flex; gap:30px; justify-content:center; margin-top:20px;">
+        <button id="sim" style="
+          padding:12px 25px; 
+          border:none; 
+          border-radius:10px; 
+          font-size:20px; 
+          background:hotpink; 
+          color:white; 
+          cursor:pointer;">Sim</button>
+
+        <button id="nao" style="
+          padding:12px 25px; 
+          border:none; 
+          border-radius:10px; 
+          font-size:20px; 
+          background:hotpink; 
+          color:white; 
+          cursor:pointer;">Não</button>
+      </div>
+    </div>
+
+    <button class="close" onclick="fechar()">Fechar</button>
+  `;
+
+  const nao = document.getElementById("nao");
+  const sim = document.getElementById("sim");
+
+  let contador = 0;
+  let movimentoInfinito = false;
+  let intervaloID;
+
+  function moverBotao() {
+    const margemSegura = 100;
+    const maxX = window.innerWidth - nao.offsetWidth;
+    const maxY = window.innerHeight - nao.offsetHeight;
+    let x, y;
+    const simRect = sim.getBoundingClientRect();
+
+    do {
+      x = Math.random() * maxX;
+      y = Math.random() * maxY;
+    } while (
+      Math.abs(x - simRect.left) < margemSegura &&
+      Math.abs(y - simRect.top) < margemSegura
+    );
+
+    nao.style.position = 'fixed';
+    nao.style.left = `${x}px`;
+    nao.style.top = `${y}px`;
+  }
+
+  function iniciarMovimentoInfinito() {
+    if (!movimentoInfinito) {
+      movimentoInfinito = true;
+      intervaloID = setInterval(moverBotao, 800);
+    }
+  }
+
+  function interagir() {
+    contador++;
+    if (contador <= 2) moverBotao();
+    if (contador === 2) iniciarMovimentoInfinito();
+  }
+
+  nao.addEventListener('mouseover', interagir);
+  nao.addEventListener('touchstart', interagir);
+
+  sim.addEventListener('click', mostrarFinal);
+}
+
+function mostrarFinal() {
+  modal.innerHTML = `
+    <div id="textoblock" style="padding:30px; text-align:center;">
+      <p style="font-size:20px; color:#d14b75; font-weight:bold;">
+        Gata, você não é uma Rita, a qual iria me fazer sentir normal. 
+        Você é a minha Lila, a única que entende o meu lado monstro 
+        e me aceita... 🐺🔥
+      </p>
+      <br>
+      <p style="font-size:20px; color:#d14b75; font-weight:bold;">
+        Eu sabia que iria aceitar, minha vampira peituda! 👄🔥
+      </p>
+    </div>
+
+    <button class="close" onclick="fechar()">Fechar</button>
+  `;
+}
+
+function fechar() {
+  modal.style.display = 'none';
+  iniciarCoracoes(document.body);
+}
+</script>
+
+</body>
+</html>
+
