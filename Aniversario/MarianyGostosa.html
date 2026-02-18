@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Presente de aniversário da gata</title>
+<title>Presente de aniversário da minha gata</title>
 
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -151,7 +151,7 @@
 
   .nome {
     position: absolute;
-    top: 8%;
+    top: 3%;
     left: 50%;
     transform: translateX(-50%) rotate(-2deg);
     font-size: 110px;
@@ -324,7 +324,7 @@
 <body>
 
   <div id="tela-bolo" class="screen bolo-wrap">
-    <div class="nome">Mari</div>
+    <div class="nome">Mariany</div>
 
     <div class="bolo-container">
       <div class="bolo" id="bolo">
@@ -434,7 +434,7 @@ function irParaEnvelopes() {
   telaEnvelopes.classList.remove('hidden');
   telaEnvelopes.setAttribute('aria-hidden', 'false');
 
-  iniciarCoracoes(document.getElementById('envelopes-area'));
+  pararCoracoes();
 
 }
 
@@ -471,9 +471,6 @@ function pararCoracoes() {
   }
 }
 
-// inicia corações no body por padrão
-iniciarCoracoes(document.body);
-
 const modal = document.getElementById('modal');
 
 const trechos = [
@@ -485,7 +482,7 @@ const trechos = [
   "Há algo em te amar que me leva pra dentro de mim,\nme fazendo atravessar quilômetros do que sou,\ndescobrindo refúgios, encarando complexos,\nsentindo o peso e a leveza de existir por alguém.",
   "É como se, em todos os momentos,\nesse amor ainda estivesse aqui, esperando por ser novamente sentido.\nPresente, mesmo quando adormecido.\nForte, mesmo quando frágil.",
   "Amar é também se perder às vezes.\nÉ não se ouvir, e ainda assim querer escutar.\nÉ falhar, e mesmo assim tentar de novo.\nÉ olhar pra alguém e ver seu lar.",
-  "Se eu pudesse, agora mesmo,\nte olharia nos seus olhos e deixaria o silêncio falar por mim.\nReviveria nossas conversas jogadas fora,\nnossos planos de todo tipo.",
+  "Se eu pudesse, agora mesmo,\nte olharia nos olhos e deixaria o silêncio falar por mim.\nReviveria nossas conversas jogadas fora,\nnossos planos de todo tipo.",
   "A tua presença é única, e disso eu sei.\nTe reconhecer foi como encontrar algo raro,\nque não se compara, que não se repete.",
   "Ainda assim, entre tudo o que fomos e tudo o que somos,\nhá um sentimento que permanece:\ngrande, honesto, vivo.",
   "Quero que saiba que amar você nunca foi pouco.\nNunca será.\nÉ o lugar onde eu gosto de estar.",
@@ -495,10 +492,10 @@ const trechos = [
 
 const caosTrechos = [
   "Hoje é 08 de dezembro de 2025, um dia que vai ficar marcado na minha memória para sempre porque é o dia em que celebramos a sua existência, a sua vida, a sua beleza, a sua essência.\n\nDesde que você chegou ao mundo, há 15 anos, você trouxe luz, amor e alegria para todos ao seu redor, e eu me sinto infinitamente privilegiado por ter cruzado o seu caminho.",
-  "Você é simplesmente extraordinária. Não só pelo seu rosto lindo, pelo seu corpo encantador, mas pela sua mente brilhante, pela sua sensibilidade, pela sua força, pela sua coragem e pela forma como você transforma tudo ao redor com a sua presença.\n\nCada sorriso seu ilumina o meu mundo, cada olhar seu me faz flutuar, cada gesto seu me ensina sobre amor, empatia e beleza verdadeira.",
-  "Meu amor, você é uma obra-prima de alma, uma mistura perfeita de delicadeza e intensidade, de ternura e força, de sabedoria e inocência.\nE eu só consigo agradecer a cada instante por você ser minha, por eu poder te amar e compartilhar cada momento contigo.",
+  "Você é simplesmente extraordinária. Não só pelo seu rosto lindo, pelo seu corpo encantador, mas pela sua mente brilhante, pela sua sensibilidade, pela sua força, pela sua coragem e pela forma como você transforma tudo ao seu redor com a sua presença.\n\nCada sorriso seu ilumina o meu mundo, cada olhar seu me faz flutuar, cada gesto seu me ensina sobre amor, empatia e beleza verdadeira.",
+  "Meu bem, você é uma obra-prima de alma, uma mistura perfeita de delicadeza e intensidade, de ternura e força, de sabedoria e inocência.\nE eu só consigo agradecer a cada instante por você ser minha, por eu poder te amar e compartilhar cada momento contigo.",
   "Hoje, celebramos você, e celebramos também a sorte que a vida me deu de te colocar ao meu lado.\n\nE neste seu aniversário de 15 anos, quero dizer que você merece o mundo inteiro, minha princesa.\nQue cada sonho seu encontre caminho para se realizar, que cada desafio seja superado com sua força única, que cada sorriso seja multiplicado infinitamente.\n\nQue você continue crescendo, brilhando e encantando a todos com a sua energia, com a sua bondade, com a sua alegria de viver.\n\nQue cada ano que passar traga ainda mais conquistas, experiências inesquecíveis e felicidade verdadeira.\n\nQue você continue sendo essa menina incrível que mistura maturidade e leveza, que encanta por dentro e por fora, que transforma tudo ao seu redor em beleza e amor.",
-  "Meu bem, eu te amo mais do que qualquer palavra poderia expressar, e neste dia especial quero que você sinta todo o carinho, toda a admiração, todo o amor que tenho por você.\n\nQue este seja apenas o começo de uma vida maravilhosa, e que eu possa estar ao seu lado em cada passo, em cada sorriso, em cada vitória e em cada momento.\n\nFeliz 15 anos, minha eterna inspiração, meu amor eterno.\nTe amo há exatos versos de amor:"
+  "Meu amor, eu te amo mais do que qualquer palavra poderia expressar, e neste dia especial quero que você sinta todo o carinho, toda a admiração, todo o amor que tenho por você.\n\nQue este seja apenas o começo de uma vida maravilhosa, e que eu possa estar ao seu lado em cada passo, em cada sorriso, em cada vitória e em cada momento.\n\nFeliz 15 anos, minha eterna inspiração, meu amor eterno.\nTe amo há exatos versos de amor:"
 ];
 
 function escreverTextoGradualmente(texto, container, callback) {
@@ -540,7 +537,7 @@ function escreverContador() {
 
     const texto = futuro
       ? `Faltam ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos para 13 meses!`
-      : `${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos de nós`;
+      : `${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos de João e Mari`;
 
     contador.textContent = texto;
   }
@@ -608,7 +605,7 @@ function abrirPedido() {
 
   modal.innerHTML = `
     <div id="textoblock">
-      <h2 style="color:hotpink; margin-bottom:20px;">Meu amor, você aceita oficialmente namorar comigo?</h2>
+      <h2 style="color:hotpink; margin-bottom:20px;">Mariany Victória Pêgas Rodrigues, você aceita João Victor Alves como o homem que estará sempre ao seu lado e, legitimamente, seu namorado?</h2>
 
       <div style="display:flex; gap:30px; justify-content:center; margin-top:20px;">
         <button id="sim" style="
@@ -686,7 +683,7 @@ function mostrarFinal() {
       <p style="font-size:20px; color:#d14b75; font-weight:bold;">
         Gata, você não é uma Rita, a qual iria me fazer sentir normal. 
         Você é a minha Lila, a única que entende o meu lado monstro 
-        e me aceita... 🐺🔥
+        e me aceita. \n🐺
       </p>
       <br>
       <p style="font-size:20px; color:#d14b75; font-weight:bold;">
@@ -700,10 +697,11 @@ function mostrarFinal() {
 
 function fechar() {
   modal.style.display = 'none';
-  iniciarCoracoes(document.body);
+  pararCoracoes(); 
 }
+
 </script>
+
 
 </body>
 </html>
-

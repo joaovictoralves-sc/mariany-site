@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mariany Gostosa, te amooooooooooooooo</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+html,body{
+  width:100%;
+  height:100%;
+  font-family:Arial,sans-serif;
+  overflow:hidden;
+  background:linear-gradient(to bottom,#ffc0cb,#ffe6f0);
+}
+
+/* TELAS */
+.tela{
+  position:absolute;
+  inset:0;
+  display:none;
+}
+.tela.ativa{
+  display:block;
+}
+
+/* NOME */
+.nome {
+  position: absolute;
+  top: 3%;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  font-size: 110px;
+  font-weight: 900;
+  color: #ff007f;
+  letter-spacing: 5px;
+  text-shadow:
+    0 0 10px #ff77c8,
+    0 0 25px #ff33a8,
+    0 0 45px #ff008c,
+    0 0 60px #ff0080;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* CORAÇÕES */
+.heart{
+  position:absolute;
+  width:20px;
+  height:20px;
+  background:hotpink;
+  transform:rotate(45deg);
+  animation:heartFall 8s linear infinite;
+  opacity:.6;
+  pointer-events:none;
+}
+
+.heart::before,.heart::after{
+  content:"";
+  position:absolute;
+  width:20px;
+  height:20px;
+  background:hotpink;
+  border-radius:50%;
+}
+
+.heart::before{top:-10px;left:0}
+.heart::after{top:0;left:-10px}
+
+@keyframes heartFall{
+  0%{top:-30px;opacity:1}
+  100%{top:100%;opacity:0}
+}
+
+/* PALAVRAS */
+.falling-text{
+  position:absolute;
+  font-size:20px;
+  color:hotpink;
+  font-weight:bold;
+  text-shadow:0 0 4px #ff69b4;
+  animation:txtFall 6s linear infinite;
+  pointer-events:none;
+}
+
+@keyframes txtFall{
+  0%{top:-30px;opacity:1}
+  100%{top:100%;opacity:0}
+}
+
+/* PRESENTE */
+.presente-wrap{
+  position:absolute;
+  top:45%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:40px;
+}
+
+.caixa{
+  width:220px;
+  height:160px;
+  background:linear-gradient(180deg,#ff8fcf,#ff4fb2);
+  border-radius:15px;
+  position:relative;
+  box-shadow:0 12px 25px rgba(0,0,0,.25);
+}
+
+.caixa::before{
+  content:"";
+  position:absolute;
+  top:-25px;
+  left:-10px;
+  width:240px;
+  height:50px;
+  background:linear-gradient(180deg,#ff9fda,#ff5fc1);
+  border-radius:15px;
+  transition:.6s;
+}
+
+.fita-v{
+  position:absolute;
+  left:50%;
+  top:-25px;
+  width:26px;
+  height:185px;
+  background:#ff1493;
+  transform:translateX(-50%);
+  border-radius:12px;
+}
+
+.fita-h{
+  position:absolute;
+  top:50%;
+  width:100%;
+  height:26px;
+  background:#ff1493;
+  transform:translateY(-50%);
+}
+
+.laco{
+  position:absolute;
+  top:-75px;
+  left:50%;
+  width:140px;
+  height:70px;
+  transform:translateX(-50%);
+  cursor:pointer;
+}
+
+.laco::before,.laco::after{
+  content:"";
+  position:absolute;
+  width:65px;
+  height:65px;
+  background:#ff007f;
+  border-radius:50%;
+}
+
+.laco::before{left:0}
+.laco::after{right:0}
+
+.laco-centro{
+  position:absolute;
+  left:50%;
+  top:22px;
+  width:30px;
+  height:30px;
+  background:#ff007f;
+  border-radius:50%;
+  transform:translateX(-50%);
+}
+
+.aberta .caixa::before{
+  transform:translateY(-120px) rotate(-15deg);
+  opacity:0;
+}
+
+#presenteBtn{
+  display:none;
+  background:linear-gradient(180deg,#ff5cc1,#ff007f);
+  color:white;
+  padding:16px 40px;
+  font-size:26px;
+  font-weight:900;
+  border:none;
+  border-radius:25px;
+  box-shadow:0 0 25px #ff4fa8;
+  cursor:pointer;
+}
+
+/* CREDITOS */
+.credits{
+  position:absolute;
+  bottom:10px;
+  width:100%;
+  text-align:center;
+  font-weight:bold;
+  color:#d56a82;
+}
+
+@media(max-width:480px){
+  .nome{font-size:52px}
+}
+
+/* QUIZ BOX */
+.quiz-box{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:90%;
+  max-width:520px;
+  background:linear-gradient(180deg,#ffe0f0,#ff9ccc);
+  border-radius:26px;
+  padding:26px;
+  text-align:center;
+  box-shadow:0 18px 40px rgba(0,0,0,.25);
+  z-index:10;
+}
+
+.quiz-title{
+  font-size:22px;
+  font-weight:900;
+  color:#b8005a;
+}
+
+.quiz-question{
+  font-size:20px;
+  font-weight:700;
+  margin:14px 0;
+  color:#6b0033;
+}
+
+.quiz-btn{
+  width:100%;
+  padding:14px;
+  margin:6px 0;
+  border:none;
+  border-radius:16px;
+  background:#ff2f8f;
+  color:white;
+  font-weight:700;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.quiz-btn:hover{
+  background:#ff9ccc;
+  color:#b8005a;
+  transform:scale(1.03);
+  transition:.2s;
+}
+
+/* ALERTA */
+.alert{
+  position:absolute;
+  top:10%;
+  left:50%;
+  transform:translateX(-50%);
+  background:#ff4fa8;
+  color:white;
+  padding:14px 22px;
+  border-radius:20px;
+  font-weight:700;
+  display:none;
+  z-index:20;
+}
+
+/* GAME OVER */
+#gameover{
+  font-size:46px;
+  font-weight:900;
+  color:#ff007f;
+  text-align:center;
+  margin-top:35vh;
+}
+
+#final-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column; /* organiza verticalmente */
+  justify-content: center; /* centraliza verticalmente */
+  align-items: center; /* centraliza horizontalmente */
+  overflow: hidden;
+}
+
+#slideshow {
+  display: flex;
+  justify-content: center; /* centraliza horizontal */
+  align-items: center;     /* centraliza vertical */
+  width: 100%;
+  max-width: 480px;
+  height: 80vh;            /* altura máxima da tela */
+  margin: 0 auto;          /* centraliza horizontal */
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+#slideImg {
+  max-width: 90%;        /* aumenta horizontalmente, mas deixa margem lateral */
+  max-height: 70vh;      /* altura menor que 100% da tela */
+  width: auto;
+  height: auto;
+  object-fit: contain;   /* mantém proporção */
+  border-radius: 22px;
+  box-shadow: 0 0 30px rgba(255,0,130,.6);
+  display: block;
+  margin: 40px auto 0;   /* empurra a imagem 30px pra baixo */
+}
+
+.texto-digitado {
+  position: absolute;        /* sobreposição sobre a imagem */
+  top: 50%;                  /* centraliza verticalmente */
+  left: 50%;                 /* centraliza horizontalmente */
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 900px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 900;          /* negrito forte */
+  color: #000000;            /* preto forte */
+  white-space: pre-line;
+  z-index: 20;               /* acima da imagem */
+  opacity: 1;
+  transition: opacity 2s ease; /* fade suave quando desaparecer */
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="alert" class="alert"></div>
+
+<!-- TELA 0 -->
+<div id="tela0" class="tela ativa">
+
+<div class="nome">Mariany</div>
+
+<div id="caixaWrap" class="presente-wrap">
+  <div class="caixa">
+    <div class="fita-v"></div>
+    <div class="fita-h"></div>
+    <div class="laco" id="laco">
+      <div class="laco-centro"></div>
+    </div>
+  </div>
+  <button id="presenteBtn">Desculpa meu amor</button>
+</div>
+
+<div class="credits">by: João Victor Alves.</div>
+
+</div>
+
+<!-- TELAS 1 ATÉ 10 -->
+<div id="tela1" class="tela"></div>
+<div id="tela2" class="tela"></div>
+<div id="tela3" class="tela"></div>
+<div id="tela4" class="tela"></div>
+<div id="tela5" class="tela"></div>
+<div id="tela6" class="tela"></div>
+<div id="tela7" class="tela"></div>
+<div id="tela8" class="tela"></div>
+<div id="tela9" class="tela"></div>
+<div id="tela10" class="tela"></div>
+
+<div id="telaOver" class="tela">
+  <div id="gameover">GAME OVER</div>
+</div>
+
+<div id="telaFinal" class="tela">
+  <div id="slideshow">
+    <img id="slideImg">
+  </div>
+
+  <div id="textoFinal" class="texto-digitado"></div>
+</div>
+
+<script>
+/* PALAVRAS */
+const palavras=[
+ "meu amor","minha morena","gostosa","delícia","amo seus cachinhos",
+ "amo esse bundão gostoso","amo essa bucetinha","papai te ama","neném","pequena","princesa","amo seus peitinhos","apertadinha do papai"
+];
+
+
+function criarTextoCaindo(txt){
+  const t=document.createElement("div");
+  t.className="falling-text";
+  t.textContent=txt;
+  document.body.appendChild(t);
+
+  t.style.left=Math.random()*(window.innerWidth-t.offsetWidth)+"px";
+  t.style.fontSize=(16+Math.random()*16)+"px";
+  t.style.opacity=(0.6+Math.random()*0.4);
+
+  setTimeout(()=>t.remove(),6000);
+}
+
+setInterval(()=>{
+  const p=palavras[Math.floor(Math.random()*palavras.length)];
+  criarTextoCaindo(p);
+},150);
+
+/* CORAÇÕES */
+setInterval(()=>{
+  for(let i=0;i<2;i++){
+    const h=document.createElement("div");
+    h.className="heart";
+    h.style.left=Math.random()*window.innerWidth+"px";
+    h.style.top="-30px";
+    const s=10+Math.random()*20;
+    h.style.width=h.style.height=s+"px";
+    h.style.animationDuration=(6+Math.random()*4)+"s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),12000);
+  }
+},300);
+
+/* CONTROLE DE TELAS */
+let telaAtual=0;
+function mostrarTela(n){
+  document.querySelectorAll(".tela").forEach(t=>t.classList.remove("ativa"));
+  document.getElementById("tela"+n).classList.add("ativa");
+  telaAtual=n;
+}
+
+/* LAÇO */
+const laco=document.getElementById("laco");
+const caixaWrap=document.getElementById("caixaWrap");
+const btn=document.getElementById("presenteBtn");
+
+laco.addEventListener("click",()=>{
+  caixaWrap.classList.add("aberta");
+  setTimeout(()=>btn.style.display="block",600);
+});
+
+btn.addEventListener("click",()=>{
+  mostrarTela(1);
+});
+
+/* ALERTA */
+function alertar(txt,cb){
+  const a=document.getElementById("alert");
+  a.innerText=txt;
+  a.style.display="block";
+  setTimeout(()=>{
+    a.style.display="none";
+    cb && cb();
+  },1500);
+}
+
+function erro(msg){
+  alertar(msg,()=>{
+    setTimeout(()=>{
+      document.querySelectorAll(".tela").forEach(t=>t.classList.remove("ativa"));
+      document.getElementById("telaOver").classList.add("ativa");
+    },800);
+  });
+}
+
+function acerto(msg){
+  if(msg){
+    alertar(msg, avancar);
+  } else {
+    avancar();
+  }
+}
+
+function avancar(){
+  if(telaAtual < 10){
+    mostrarTela(telaAtual + 1);
+  } else {
+    mostrarTelaFinal();
+  }
+}
+
+function mostrarTelaFinal(){
+  document.querySelectorAll(".tela").forEach(t=>t.classList.remove("ativa"));
+  document.getElementById("telaFinal").classList.add("ativa");
+
+  iniciarSlideshow();
+  digitarTexto();
+}
+
+/* PERGUNTAS */
+const perguntas=[
+["Como a minha namorada se chama?",[
+  ["Mariany Victória","Que nome mais gostoso meu bem, mas não é assim que eu te chamo."],
+  ["Pamela rata","Loira burra eu não gosto, ainda mais dessa vadia feiosa."],
+  ["Vivii","Até o apelido do meu neném é lindo, mas pra você é amor minha gostosa."],
+  ["Meu amor","Acho bom mesmo, é só meu amor mesmo, todinha minha."]
+],3],
+
+["Como o seu namorado se chama Mariany Victória Pêgas Rodrigues?",[
+  ["João Victor","Só eu mesmo hein minha princesa, o único, só o seu gostoso."],
+  ["Imenso","Sério isso, Mariany? Pode deixar hein que eu estou vendo tudo, vê se engole também."],
+  ["Rafael","Me traindo na cara dura, Mariany? Saiba que eu fui notificado por essa escolha."],
+  ["Outro","Posso saber quem é? Mas, pode deixar que Deus castiga, e nem venha pedir desculpas depois."]
+],0],
+
+["Qual o seu nível de beleza meu amor?",[
+  ["?","+99999999999999999999999999999999999999999999999999999999999999999999"],
+  ["??","+99999999999999999999999999999999999999999999999999999999999999999999"],
+  ["???","+99999999999999999999999999999999999999999999999999999999999999999999"],
+  ["????","+99999999999999999999999999999999999999999999999999999999999999999999"]
+],-1],
+
+["Qual foi a data que nos conhecemos?",[
+  ["01/12/2024","Você não me ama, Mariany. Eu não esperava isso de você."],
+  ["27/09/2024","Posso saber quem você conheceu nessa data, Mariany? Porque eu que não foi."],
+  ["10/10/2024","Hum, tô de olho hein. Acho bom saber mesmo, é o mínimo minha gostosa. É o nosso dia."],
+  ["17/11/2024","Tá me traindo com quem, Mariany? Vai lá com seus machos então, me esquece porra."]
+],2],
+
+["Qual é a música que seu namorado estava ouvindo agora?",[
+  ["Flamingos - Baco do exu","Me fez apaixonar nessa meu bem, minha favorita por sua causa meu amor. Mas não é essa."],
+  ["Foi assim - Sotam","Essa é a nossa caraaaaaaaaaa, é a nossa relação. Mas tá errada hein safada."],
+  ["A.M.M.M - Canção de Garotos de Ouro","SIMMMMMMMMMMMMMM, A.M.M.M. (ASSOCIAÇÃO DOS MARIDOS MANDADOS PELA MUIÉ) MINHA GOSTOSAAAAAA."],
+  ["Nenhuma das alternativas","Safada hein, a música que eu quero mesmo é você gemendo bem gostoso pra mim."]
+],2],
+
+["Quem se apaixonou primeiro?",[
+  ["João Victor","Hum, claro que fui eu hein, você sabe bem disso gata. Mas errou safada."],
+  ["Mariany Victória","Ficou caidinha no branqelo dos olhos verdes. Mas errou minha gosstosa."],
+  ["Ninguém","Ninguém, Mariany? Fale por si só isso, depois que não me ver nunca mais não sabe porquê."],
+  ["Nós dois","Muito bem senhoritaaaaaaaa, combinamos tanto que foi ao mesmo tempo meu amor. Eu te amo tanto delícia."]
+],3],
+
+["Qual a maior mania do seu namorado? ",[
+  ["Irritar","Simmmmmmmmmmm, amo pertrbar o meu neném. Mas não é essa não."],
+  ["Não parar de falar","A gata amaaaaaaaaaaaaaaaaaaaaaaaa meu jeitinho, minha maior mania."],
+  ["Dormir no escuro","Só durmo se for assim delícia, igual um morcego, no escurinho. Mas errou safada."],
+  ["Todas","Tá se fazendo, Mariany? Não conhece seu namorado?"]
+],1],
+
+["Quem faz mais drama meu amor?",[
+  ["João Victor","Eu aturo todo seu drama meu neném, papai ama tantoooooooooooooo."],
+  ["Mariany Victória","É a senhoritaaaaaaaaaaa sim, sim senhora. Mas eu que mando, e está errada."],
+  ["Mariany Victória Manhosa Dramática Do Bicão Pêgas Rodrigues","É A MANHOSAAAAAA DO PAPAI? É ME AMOR?????? EU AMOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO."],
+  ["Nós dois","Nós dois? Mariany? Vem aqui pegar o drama enorme que eu tenho pra você, um drama grosso e veiudo."]
+],2],
+
+["Ama muito mesmo o seu namorado?",[
+  ["Sim","Ama nada, Mariany. Hum, sua safada."],
+  ["Com certeza","Tá melhorando já, mas passou longe. Ama nada eu, só mentira."],
+  ["Amo pra caralho","Ama meu caralho amorzinho???? Assim que eu gosto delícia do papai. Mas não é essa a pergunta minha gostosa."],
+  ["Amo esse gostoso","Só seu gostosoooooooooooooooooooo meu amor. Completamente seu gata."]
+],3],
+
+["Vai liberar o cuzinho pro seu namorado?",[
+  ["Não","Não mereço, Mariany? Não me ama mesmo, eu sempre soube disso."],
+  ["Quando ele quiser porque ele quem manda no meu rabo","SIMMMMMMMMMMMMMMMMMMMMMMMM, A SENHORITA QUEM ESTÁ ME DIZENDO. TE AMOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO GOSTOSA, AMO ESSE RABO, SÓ MEU, MEU, MEU MESMO."],
+  ["Nunca","Você me odeiaaaaaaaaaaaaaaaaaaa, Mariany. Me odeia tanto, estou decepcionado com você."],
+  ["Se merecer","Sério isso, Mariany? Que falta de respeito pelo seu dono, nem ama seu papai."]
+],1]
+];
+
+/* MONTAGEM AUTOMÁTICA DAS TELAS */
+for(let i=0;i<10;i++){
+  const t=document.getElementById("tela"+(i+1));
+  let html=`<div class="quiz-box">
+    <div class="quiz-title">Pergunta ${i+1}</div>
+    <div class="quiz-question">${perguntas[i][0]}</div>`;
+
+  perguntas[i][1].forEach((op,idx)=>{
+    const texto = op[0];
+    const msg = op[1];
+
+    if(perguntas[i][2]==-1){
+      html+=`<button class="quiz-btn" onclick="alertar('${msg}',()=>acerto())">${texto}</button>`;
+    }
+    else if(idx==perguntas[i][2]){
+      html+=`<button class="quiz-btn" onclick="acerto('${msg}')">${texto}</button>`;
+    }else{
+      html+=`<button class="quiz-btn" onclick="erro('${msg}')">${texto}</button>`;
+    }
+  });
+
+  html+=`</div>`;
+  t.innerHTML=html;
+}
+
+const fotos = [
+  "fotos/1.jpeg",
+  "fotos/2.jpeg",
+  "fotos/3.jpeg",
+  "fotos/4.jpeg",
+  "fotos/5.jpeg",
+  "fotos/6.jpeg",
+  "fotos/7.jpeg",
+  "fotos/8.jpeg",
+  "fotos/9.jpeg",
+  "fotos/10.jpeg"
+];
+
+let slideIndex = 0;
+let slideInterval;
+
+function iniciarSlideshow(){
+  const img = document.getElementById("slideImg");
+  img.src = fotos[0];
+
+  slideInterval = setInterval(()=>{
+    slideIndex = (slideIndex + 1) % fotos.length;
+    img.src = fotos[slideIndex];
+  }, 3000);
+}
+
+const texto = `
+Meu bem, meu amor, meu neném, minha princesa, minha branquinha, minha morena, pequena do papai, minha vida, minha Mariany Victória Pêgas Rodrigues.
+
+Eu fiquei pensando muito antes de escrever isso, porque não quero que seja só um "me desculpa" jogado no ar. Quero que você sinta o que está aqui dentro de mim, do meu coração.
+
+Eu errei. É dói admitir isso, porque quando a gente ama de verdade, a última coisa que quer é machucar quem está sempre do nosso lado. Mas eu machuquei você, de alguma forma, e isso pesa no meu peito.
+
+Me perdoa.
+
+Não porque é fácil perdoar, mas porque eu estou sendo honesto com você meu amor, estou com o coração aberto, sem máscaras, sem orgulho, sem defesa. 
+
+Você é tão importante pra mim num nível que às vezes nem sei explicar direito. Você não é só minha namorada. Você é meu desejo, minha calma, minha saudade, minha vontade de ficar. Você é quem entra na minha cabeça do nada durante o dia e que fica ali, ocupando espaço bom, gostoso. 
+
+Me orgulho da mulher forte que você é. 
+Orgulho da tua sensibilidade.
+Do teu lado criança, puro, cheio de luz.
+Do jeiro que voce sente tudo intensamente.
+Do jeiro que você continua sendo doce mesmo quando o mundo pesa.
+
+Eu admiro você demais.
+
+Admiro teu rosto lindo, perfeito, teu sorriso que me desmonta por inteiro, teus cachos sedosos, atraentes, ondulantes. Admiro teu corpo, tua bunda grande que me deixa pulsante, tua pele branca gostosa, teu jeito apertadinho. 
+
+Mas mais do que isso, eu admiro a tua alma 
+
+Você é forte, mas sensível.
+Segura, mas carinhosa.
+Mulher, mas ainda cheia de pureza.
+Você consegue ser abrigo e tentação ao mesmo tempo.
+
+E eu sei que nem sempre sou o homem fácil ao teu lado.
+
+Às vezes eu provoco demais.
+Às vezes eu exagero.
+Às vezes deixo meu humor passar do ponto.
+Às vezes não percebo na hora que você só precisa de acolhimento.
+
+Mas nunca, em nenhum momento, é falta de amor.
+
+Você mexe comigo de um jeito que não é só desejo, é conexão. É vontade de cuidar. É vontade de crescer. É vontade de ser melhor. 
+
+Eu sinto tua falta quando a gente se distancia. Sinto falta do teu jeito, da tua risada, da forma como você me olha quando quer carinho e também da forma como me olha quando quer mais do que isso. 
+
+E mesmo assim, eu fui falho com você meu amor.
+
+Isso não me orgulha.
+
+Às vezes eu ajo sem pensar, falo sem medir. E isso não é justo com você. Você merece atenção, presença, cuidado. Merece alguém que te escute de verdade, que te abrace quando você estiver sensível, que te puxe pra perto quando você achar que está sozinha. 
+
+Eu quero ser o homem que te respeita quando você está sensível.
+Que te admira quando você está forte.
+Que te abraça quando você está frágil.
+
+Eu não prometo ser perfeito.
+Prometo tentar todos os dias. 
+
+Prometo te ouvir mais.
+Te cuidar melhor.
+Te amar com mais presença.
+
+Porque eu tenho orgulho de você.
+Tenho admiração por quem você é.
+E tenho desejo por tudo o que você desperta em mim.
+
+Se você me permitir, eu quero consertar o que eu quebrei. Quero reconstruir com calma, com carinho, com a verdade. Quero te mostrar em atitudes o que minhas palavras estão tentando dizer agora.
+
+Me perdoa, minha linda.
+
+Vem cá com seu papai.
+
+Deixa eu cuidar de você.
+Deixa eu te desejar sem medo.
+Deixa eu te amar do meu jeito louco.
+
+Eu ainda quero te fazer sorrir e te arrepiar minha gostosa.
+`;
+
+let i = 0;
+
+function digitarTexto() {
+  const el = document.getElementById("textoFinal");
+  el.innerHTML = "";
+  el.style.opacity = 1;
+
+  // separa o texto em blocos por parágrafos
+  const blocos = texto.trim().split(/\n\s*\n/);
+  let blocoIndex = 0;
+
+  function mostrarBloco() {
+    if (blocoIndex >= blocos.length) return; // acabou
+    el.innerHTML = ""; // limpa o bloco anterior
+    const linhas = blocos[blocoIndex].split("\n");
+
+    let charIndex = 0;
+
+    const timer = setInterval(() => {
+      if (charIndex < linhas.join("\n").length) {
+        el.innerHTML += linhas.join("\n").charAt(charIndex);
+        charIndex++;
+      } else {
+        clearInterval(timer);
+        // mantém o bloco visível por 3s e depois some suavemente
+        setTimeout(() => {
+          el.style.opacity = 0;
+          setTimeout(() => {
+            el.style.opacity = 1;
+            blocoIndex++;
+            mostrarBloco(); // mostra o próximo bloco
+          }, 1000); // fade out
+        }, 3000); // tempo do bloco visível
+      }
+    }, 30); // velocidade de digitação por caractere
+  }
+
+  mostrarBloco();
+}
+
+</script>
+
+</body>
+</html>
